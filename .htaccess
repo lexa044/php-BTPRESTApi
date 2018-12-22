@@ -1,0 +1,5 @@
+Options -Indexes
+#RewriteEngine on
+#RewriteRule ^tokens$ tokens.php [NC]
+#RewriteRule ^accounts$ /v1/endpoints/accounts/accounts.php [NC]
+#RewriteRule ^wallets$ /v1/endpoints/wallets/wallets.php [NC]
