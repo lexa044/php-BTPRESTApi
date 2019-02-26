@@ -77,6 +77,9 @@ else {
             include_once '../../config/mysql.php';
             include_once '../../models/accounts.php';
 
+            include_once '../../others/jsonRPCClient.php';
+            include_once '../../config/rpc.php';
+
             // initialize objects
             $database = new mysql();
             $db = $database->getConnection();
@@ -90,11 +93,14 @@ else {
                 $account_array=array();
                 $account_array["accounts"]=array();
 
+                $rpcnode = new rpcClass();
                 while ($row = $stmtAccount->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
+                    $address_balance = $rpcnode->getBalance($account_code);
                     $account_item=array("code" => $account_code,
                                         "password" => $account_secret,
                                         "description" => $account_description,
+                                        "balance" => number_format($address_balance,8),
                                         "status" => $account_status);
 
                     array_push($account_array["accounts"], $account_item);
